@@ -22,25 +22,77 @@
                        class="p-2 rounded border">
                 <input type="text" name="end_time" id="end_time" placeholder="End time" class="p-2 rounded border">
             </div>
-            <button type="button" onclick="submitFormAsync()" class="bg-green-500 text-white p-2 rounded">Submit
+            <button id="submit-button-normal" type="button" onclick="submitFormAsync()"
+                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                Process
+            </button>
+            <button id="submit-button-loading" disabled type="button" style="display: none"
+                    class="py-2.5 px-5 mr-2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 inline-flex items-center">
+                <svg aria-hidden="true" role="status"
+                     class="inline w-4 h-4 mr-3 text-gray-200 animate-spin dark:text-gray-600" viewBox="0 0 100 101"
+                     fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                          fill="currentColor"/>
+                    <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                          fill="#1C64F2"/>
+                </svg>
+                Loading...
             </button>
         </div>
     </form>
+
     <div id="results" class="mt-8 bg-white p-4 rounded-lg shadow-lg">
+        <div id="loading" style="display:none;" role="status"
+             class="max-w-md p-4 space-y-4 border border-gray-200 divide-y divide-gray-200 rounded shadow animate-pulse dark:divide-gray-700 md:p-6 dark:border-gray-700">
+            <div class="flex items-center justify-between">
+                <div>
+                    <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
+                    <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                </div>
+                <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+            </div>
+            <div class="flex items-center justify-between pt-4">
+                <div>
+                    <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
+                    <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                </div>
+                <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+            </div>
+            <div class="flex items-center justify-between pt-4">
+                <div>
+                    <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
+                    <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                </div>
+                <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+            </div>
+            <div class="flex items-center justify-between pt-4">
+                <div>
+                    <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
+                    <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                </div>
+                <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+            </div>
+            <div class="flex items-center justify-between pt-4">
+                <div>
+                    <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
+                    <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                </div>
+                <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+            </div>
+            <span class="sr-only">Loading...</span>
+        </div>
         <!-- Audio players and controls here -->
     </div>
 </div>
 
-<script>
-    // Your existing JavaScript code
-</script>
 </body>
 </html>
 
 
 <script>
     let player;
-
+    const submitButtonLoading = document.getElementById('submit-button-loading');
+    // submitButtonLoading.style.display = 'none';
     function onYouTubeIframeAPIReady() {
         player = new YT.Player('video-player', {
             height: '390',
@@ -67,6 +119,15 @@
     };
 
     const submitFormAsync = async () => {
+        // Disable the submit button and show loading indicator
+        const submitButton = document.getElementById("submit-button-normal");
+        const submitButtonLoading = document.getElementById("submit-button-loading");
+        const loadingIndicator = document.getElementById("loading");
+        submitButton.disabled = true;
+        submitButton.style.display = 'none';
+        submitButtonLoading.style.display = 'block';
+        loadingIndicator.style.display = 'block';
+
         const formData = new FormData(document.getElementById('process-form'));
         const response = await fetch('/process', {
             method: 'POST',
@@ -75,14 +136,21 @@
 
         const result = await response.json();
 
+        // Hide loading indicator and re-enable the submit button
+        loadingIndicator.style.display = 'none';
+        submitButton.disabled = false;
+        submitButton.style.display = 'block';
+        submitButtonLoading.style.display = 'none';
+
         // Add the results to the page
         document.getElementById('results').innerHTML = `
-            <p>File Name: ${result.file_name}</p>
-            <p>Separated Files: ${result.separated_files}</p>
-        `;
+        <p>File Name: ${result.file_name}</p>
+        <p>Separated Files: ${result.separated_files}</p>
+    `;
 
         sync_audio();
     };
+
 
     let isProgrammaticSeek = false; // Flag to indicate if the seek is programmatic
 
