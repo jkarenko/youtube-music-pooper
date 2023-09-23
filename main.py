@@ -57,14 +57,15 @@ def separate_audio(file_name):
 
 
 def list_files(original_file, downloads_path):
-    audio_players = [
-        f'{original_file}<br><audio controls><source src="/{downloads_path}/{original_file}" type="audio/mp3">Your browser does not support the audio element.</audio>'
-    ]
+    main_audio = f'{original_file}<br><audio class="synced-audio main-audio" controls><source src="/{downloads_path}/{original_file}" type="audio/mp3">Your browser does not support the audio element.</audio>'
+
     files = os.listdir(f"./{downloads_path}")
-    audio_players += [
-        f'{file}<br><audio controls><source src="/{downloads_path}/{file}" type="audio/mp3">Your browser does not support the audio element.</audio>'
-        for file in files if file != original_file]
-    return "<div>" + "<br>".join(audio_players) + "</div>"
+    stem_audios = [
+        f'{file}<br><audio id="{file}" class="synced-audio stem-audio"><source src="/{downloads_path}/{file}" type="audio/mp3">Your browser does not support the audio element.</audio><input type="range" min="0" max="1" step="0.05" class="volume-slider" data-audio="{file}" value="1">'
+        for file in files if file != original_file
+    ]
+
+    return "<div>" + "<br>".join([main_audio] + stem_audios) + "</div>"
 
 
 @app.get("/", response_class=HTMLResponse)

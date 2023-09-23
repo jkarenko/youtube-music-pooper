@@ -3,25 +3,40 @@
 <head>
     <title>Youtube Audio Pooper</title>
     <script src="https://www.youtube.com/iframe_api"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-<form id="process-form">
-    <label>
-        <input type="text" name="url" id="url" placeholder="Paste YouTube URL here" oninput="loadVideo()">
-    </label>
-    <div id="video-player"></div>
-    <button type="button" onclick="setStartTime()">Set Start</button>
-    <button type="button" onclick="setEndTime()">Set End</button>
-    <label>
-        <input type="text" name="start_time" id="start_time" placeholder="Start time">
-    </label>
-    <label>
-        <input type="text" name="end_time" id="end_time" placeholder="End time">
-    </label>
-    <button type="button" onclick="submitFormAsync()">Submit</button>
-</form>
+<body class="bg-gray-100 p-4">
+<div class="container mx-auto">
+    <form id="process-form" class="bg-white p-4 rounded-lg shadow-lg">
+        <div class="flex flex-col space-y-4">
+            <input type="text" name="url" id="url" placeholder="Paste YouTube URL here" oninput="loadVideo()"
+                   class="p-2 rounded border">
+            <div id="video-player" class="bg-black h-64 rounded"></div>
+            <div class="flex space-x-4">
+                <button type="button" onclick="setStartTime()" class="bg-blue-500 text-white p-2 rounded">Set Start
+                </button>
+                <button type="button" onclick="setEndTime()" class="bg-blue-500 text-white p-2 rounded">Set End</button>
+            </div>
+            <div class="flex space-x-4">
+                <input type="text" name="start_time" id="start_time" placeholder="Start time"
+                       class="p-2 rounded border">
+                <input type="text" name="end_time" id="end_time" placeholder="End time" class="p-2 rounded border">
+            </div>
+            <button type="button" onclick="submitFormAsync()" class="bg-green-500 text-white p-2 rounded">Submit
+            </button>
+        </div>
+    </form>
+    <div id="results" class="mt-8 bg-white p-4 rounded-lg shadow-lg">
+        <!-- Audio players and controls here -->
+    </div>
+</div>
 
-<div id="results"></div>
+<script>
+    // Your existing JavaScript code
+</script>
+</body>
+</html>
+
 
 <script>
     let player;
@@ -43,13 +58,11 @@
 
     const setStartTime = () => {
         const currentTime = player.getCurrentTime();
-        // document.getElementById('start_time').value = toHHMMSS(Math.floor(currentTime));
         document.getElementById('start_time').value = Math.floor(currentTime);
     };
 
     const setEndTime = () => {
         const currentTime = player.getCurrentTime();
-        // document.getElementById('end_time').value = toHHMMSS(Math.floor(currentTime));
         document.getElementById('end_time').value = Math.floor(currentTime);
     };
 
@@ -67,7 +80,47 @@
             <p>File Name: ${result.file_name}</p>
             <p>Separated Files: ${result.separated_files}</p>
         `;
+
+        sync_audio();
     };
+
+    let isProgrammaticSeek = false; // Flag to indicate if the seek is programmatic
+
+    function sync_audio() {
+        const mainAudio = document.querySelector('.main-audio');
+        const stemAudios = document.querySelectorAll('.stem-audio');
+        const volumeSliders = document.querySelectorAll('.volume-slider');
+
+        // Sync play and pause
+        mainAudio.addEventListener('play', () => {
+            stemAudios.forEach(audio => audio.play());
+        });
+
+        mainAudio.addEventListener('pause', () => {
+            stemAudios.forEach(audio => audio.pause());
+        });
+
+        // Sync seeking
+        mainAudio.addEventListener('seeked', () => {
+            const time = mainAudio.currentTime;
+            stemAudios.forEach(audio => {
+                audio.currentTime = time;
+            });
+        });
+
+        // Mute main audio
+        mainAudio.volume = 0;
+
+        // Control volume for each stem audio
+        volumeSliders.forEach(slider => {
+            slider.addEventListener('input', (e) => {
+                const audioId = e.target.dataset.audio;
+                const audioElement = document.getElementById(audioId);
+                audioElement.volume = e.target.value;
+            });
+        });
+    }
 </script>
+
 </body>
 </html>
