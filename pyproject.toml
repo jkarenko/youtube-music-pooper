@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "youtube-music-pooper"
+version = "0.1.0"
+description = "Poops stems from youtube"
+authors = ["jkarenko <juho.karenko@gmail.com>"]
+readme = "README.md"
+packages = [{ include = "youtube_music_pooper" }]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.103.1"
+uvicorn = {extras = ["standard"], version = "^0.23.2"}
+yt-dlp = "^2023.7.6"
+jinja2 = "^3.1.2"
+demucs = "^4.0.1"
+torch = { version = "*", source = "pytorch" }
+torchaudio = { version = "*", source = "pytorch" }
+sox = "^1.4.1"
+python-multipart = "^0.0.6"
+
+[tool.poetry.dev-dependencies]
+ipython = "^8.15.0"
+
+[[tool.poetry.source]]
+name = "pytorch"
+url = "https://download.pytorch.org/whl/cu118"
+priority = "explicit"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+

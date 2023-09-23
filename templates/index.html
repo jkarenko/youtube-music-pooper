@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Youtube Audio Pooper</title>
+    <script src="https://www.youtube.com/iframe_api"></script>
+</head>
+<body>
+<form id="process-form">
+    <label>
+        <input type="text" name="url" id="url" placeholder="Paste YouTube URL here" oninput="loadVideo()">
+    </label>
+    <div id="video-player"></div>
+    <button type="button" onclick="setStartTime()">Set Start</button>
+    <button type="button" onclick="setEndTime()">Set End</button>
+    <label>
+        <input type="text" name="start_time" id="start_time" placeholder="Start time">
+    </label>
+    <label>
+        <input type="text" name="end_time" id="end_time" placeholder="End time">
+    </label>
+    <button type="button" onclick="submitFormAsync()">Submit</button>
+</form>
+
+<div id="results"></div>
+
+<script>
+    let player;
+
+    function onYouTubeIframeAPIReady() {
+        player = new YT.Player('video-player', {
+            height: '390',
+            width: '640',
+        });
+    }
+
+    const loadVideo = () => {
+        const url = document.getElementById('url').value;
+        const videoId = url.split('v=')[1];
+        if (videoId) {
+            player.loadVideoById(videoId);
+        }
+    };
+
+    const setStartTime = () => {
+        const currentTime = player.getCurrentTime();
+        // document.getElementById('start_time').value = toHHMMSS(Math.floor(currentTime));
+        document.getElementById('start_time').value = Math.floor(currentTime);
+    };
+
+    const setEndTime = () => {
+        const currentTime = player.getCurrentTime();
+        // document.getElementById('end_time').value = toHHMMSS(Math.floor(currentTime));
+        document.getElementById('end_time').value = Math.floor(currentTime);
+    };
+
+    const submitFormAsync = async () => {
+        const formData = new FormData(document.getElementById('process-form'));
+        const response = await fetch('/process', {
+            method: 'POST',
+            body: formData
+        });
+
+        const result = await response.json();
+
+        // Add the results to the page
+        document.getElementById('results').innerHTML = `
+            <p>File Name: ${result.file_name}</p>
+            <p>Separated Files: ${result.separated_files}</p>
+        `;
+    };
+</script>
+</body>
+</html>
