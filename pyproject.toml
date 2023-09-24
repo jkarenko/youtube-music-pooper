@@ -17,6 +17,7 @@ torch = { version = "*", source = "pytorch" }
 torchaudio = { version = "*", source = "pytorch" }
 sox = "^1.4.1"
 python-multipart = "^0.0.6"
+pydub = "^0.25.1"
 
 [tool.poetry.dev-dependencies]
 ipython = "^8.15.0"

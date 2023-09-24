@@ -3,108 +3,150 @@
 <head>
     <title>Youtube Audio Pooper</title>
     <script src="https://www.youtube.com/iframe_api"></script>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
 </head>
-<body class="bg-gray-100 p-4">
-<div class="container mx-auto">
-    <form id="process-form" class="bg-white p-4 rounded-lg shadow-lg">
-        <div class="flex flex-col space-y-4">
-            <input type="text" name="url" id="url" placeholder="Paste YouTube URL here" oninput="loadVideo()"
-                   class="p-2 rounded border">
-            <div id="video-player" class="bg-black h-64 rounded"></div>
-            <div class="flex space-x-4">
-                <button type="button" onclick="setStartTime()" class="bg-blue-500 text-white p-2 rounded">Set Start
-                </button>
-                <button type="button" onclick="setEndTime()" class="bg-blue-500 text-white p-2 rounded">Set End</button>
-            </div>
-            <div class="flex space-x-4">
-                <input type="text" name="start_time" id="start_time" placeholder="Start time"
-                       class="p-2 rounded border">
-                <input type="text" name="end_time" id="end_time" placeholder="End time" class="p-2 rounded border">
-            </div>
-            <button id="submit-button-normal" type="button" onclick="submitFormAsync()"
-                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                Process
+<body class="bg-gray-50 h-screen flex flex-col items-center justify-center">
+<div class="bg-white p-8 rounded-lg shadow-md w-full max-w-lg">
+    <h1 class="text-2xl mb-4">Youtube Audio Pooper</h1>
+    <form id="process-form" class="space-y-4">
+        <div>
+            <label class="block text-sm font-medium text-gray-600">Paste YouTube URL</label>
+            <input type="text" name="url" id="url" class="mt-1 p-2 w-full rounded-md" oninput="loadVideo()">
+        </div>
+        <div id="video-player" class="w-full h-64 mb-4"></div>
+        <div class="flex">
+            <button type="button" onclick="setStartTime()" class="bg-blue-500 text-white p-2 mr-1 rounded flex-1">Set
+                Start
             </button>
-            <button id="submit-button-loading" disabled type="button" style="display: none"
-                    class="py-2.5 px-5 mr-2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 inline-flex items-center">
-                <svg aria-hidden="true" role="status"
-                     class="inline w-4 h-4 mr-3 text-gray-200 animate-spin dark:text-gray-600" viewBox="0 0 100 101"
-                     fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                          fill="currentColor"/>
-                    <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                          fill="#1C64F2"/>
-                </svg>
-                Loading...
+            <button type="button" onclick="setEndTime()" class="bg-blue-500 text-white p-2 ml-1 rounded flex-1">Set
+                End
             </button>
         </div>
+        <div>
+            <label class="block text-sm font-medium text-gray-600">Start Time</label>
+            <input type="text" name="start_time" id="start_time" class="mt-1 p-2 w-full rounded-md">
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-gray-600">End Time</label>
+            <input type="text" name="end_time" id="end_time" class="mt-1 p-2 w-full rounded-md">
+        </div>
+        <button id="submit-button-normal" type="button" onclick="submitFormAsync()"
+                class="bg-green-500 text-white p-2 w-full rounded">
+            Process
+        </button>
+        <button id="submit-button-loading" disabled type="button" style="display: none"
+                class="mt-1 p-2 w-full rounded-md inline-flex items-center">
+            <svg aria-hidden="true" role="status"
+                 class="inline w-4 h-4 mr-3 text-gray-200 animate-spin dark:text-gray-600" viewBox="0 0 100 101"
+                 fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                      fill="currentColor"/>
+                <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                      fill="#1C64F2"/>
+            </svg>
+            Loading...
+        </button>
     </form>
-
-    <div id="results" class="mt-8 bg-white p-4 rounded-lg shadow-lg">
-        <div id="loading" style="display:none;" role="status"
-             class="max-w-md p-4 space-y-4 border border-gray-200 divide-y divide-gray-200 rounded shadow animate-pulse dark:divide-gray-700 md:p-6 dark:border-gray-700">
-            <div class="flex items-center justify-between">
-                <div>
-                    <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
-                    <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-                </div>
-                <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
-            </div>
-            <div class="flex items-center justify-between pt-4">
-                <div>
-                    <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
-                    <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-                </div>
-                <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
-            </div>
-            <div class="flex items-center justify-between pt-4">
-                <div>
-                    <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
-                    <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-                </div>
-                <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
-            </div>
-            <div class="flex items-center justify-between pt-4">
-                <div>
-                    <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
-                    <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-                </div>
-                <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
-            </div>
-            <div class="flex items-center justify-between pt-4">
-                <div>
-                    <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
-                    <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-                </div>
-                <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
-            </div>
-            <span class="sr-only">Loading...</span>
-        </div>
-        <!-- Audio players and controls here -->
-    </div>
 </div>
 
-</body>
-</html>
+<div id="results" class="bg-white p-8 rounded-lg shadow-md w-full max-w-lg">
+    <div id="loading" style="display:none;" role="status"
+         class="max-w-md p-4 space-y-4 border border-gray-200 divide-y divide-gray-200 rounded shadow animate-pulse dark:divide-gray-700 md:p-6 dark:border-gray-700">
+        <div class="flex items-center justify-between">
+            <div>
+                <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
+                <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+            </div>
+            <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+        </div>
+        <div class="flex items-center justify-between pt-4">
+            <div>
+                <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
+                <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+            </div>
+            <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+        </div>
+        <div class="flex items-center justify-between pt-4">
+            <div>
+                <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
+                <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+            </div>
+            <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+        </div>
+        <div class="flex items-center justify-between pt-4">
+            <div>
+                <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
+                <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+            </div>
+            <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+        </div>
+        <div class="flex items-center justify-between pt-4">
+            <div>
+                <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
+                <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+            </div>
+            <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+        </div>
+        <span class="sr-only">Loading...</span>
+    </div>
+
+    <form id="mix-form" class="space-y-4" style="display: none">
+        <!-- Audio players and controls here -->
+        <div id="mixer"></div>
+        <button id="download-button" type="button" onclick="downloadMixAsync()"
+                class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+            <svg class="w-3 h-3 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                 viewBox="0 0 20 20">
+                <path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z"/>
+                <path d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/>
+            </svg>
+            Download Mix
+        </button>
+    </form>
+</div>
 
 
 <script>
+
     let player;
-    const submitButtonLoading = document.getElementById('submit-button-loading');
+
     // submitButtonLoading.style.display = 'none';
     function onYouTubeIframeAPIReady() {
         player = new YT.Player('video-player', {
             height: '390',
             width: '640',
+            events: {
+                'onReady': onPlayerReady,
+                'onStateChange': onPlayerStateChange,
+            }
         });
     }
 
+    function onPlayerReady(event) {
+        setInitialEndTime();
+    }
+
+    function onPlayerStateChange(event) {
+        if (event.data === YT.PlayerState.PLAYING && !isProgrammaticSeek) {
+            isProgrammaticSeek = true;
+            setInitialEndTime();
+        }
+    }
+
     const loadVideo = () => {
+        isProgrammaticSeek = false;
         const url = document.getElementById('url').value;
         const videoId = url.split('v=')[1];
         if (videoId) {
             player.loadVideoById(videoId);
+        }
+    };
+
+    const setInitialEndTime = () => {
+        const duration = player.getDuration();
+        if (!isNaN(duration)) {
+            document.getElementById('end_time').value = Math.floor(duration);
         }
     };
 
@@ -122,11 +164,14 @@
         // Disable the submit button and show loading indicator
         const submitButton = document.getElementById("submit-button-normal");
         const submitButtonLoading = document.getElementById("submit-button-loading");
+        const mixForm = document.getElementById("mix-form");
         const loadingIndicator = document.getElementById("loading");
         submitButton.disabled = true;
         submitButton.style.display = 'none';
         submitButtonLoading.style.display = 'block';
+        mixForm.style.display = 'none';
         loadingIndicator.style.display = 'block';
+
 
         const formData = new FormData(document.getElementById('process-form'));
         const response = await fetch('/process', {
@@ -140,15 +185,50 @@
         loadingIndicator.style.display = 'none';
         submitButton.disabled = false;
         submitButton.style.display = 'block';
+        mixForm.style.display = 'block';
         submitButtonLoading.style.display = 'none';
 
         // Add the results to the page
-        document.getElementById('results').innerHTML = `
-        <p>File Name: ${result.file_name}</p>
-        <p>Separated Files: ${result.separated_files}</p>
-    `;
+        document.getElementById('mixer').innerHTML = `
+        <p>${result.separated_files}</p>`;
+        document.getElementById("loading").style.display = 'none';
 
         sync_audio();
+    };
+
+    const downloadMixAsync = async () => {
+        const audios = document.querySelectorAll('.stem-audio');
+        let volumes = [];
+        audios.forEach(audio => {
+            const filepath = '.' + audio.querySelector('source').getAttribute('src');
+            const volume = audio.volume;
+            let obj = {};
+            obj[filepath] = volume;
+            volumes.push(obj);
+        });
+        const formData = new FormData();
+        formData.append('volumes', JSON.stringify(volumes));
+
+
+        const response = await fetch('/download', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (response.ok) {
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = 'mix.mp3';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        } else {
+            // Handle error
+            console.error('Download failed:', response.statusText);
+        }
     };
 
 
