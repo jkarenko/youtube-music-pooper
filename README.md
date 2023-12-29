@@ -29,8 +29,17 @@ poetry install
 
 ## Run
 
+### Without Docker
+
 ```bash
 poetry run uvicorn youtube_music_pooper.main:app --reload
+```
+
+### With Docker
+
+```bash
+docker build -t youtube_music_pooper .
+docker run --rm -p 8000:8000 youtube_music_pooper
 ```
 
 
