@@ -11,6 +11,14 @@ You need Python (tested on 3.11) and additionally Poetry for dependency manageme
 pip install poetry
 ```
 
+ffmpeg is also required for audio processing. On macOS, you can install it with Homebrew.
+
+```bash
+brew install ffmpeg
+```
+
+On Windows, you can download it from the [official website](https://ffmpeg.org/download.html).
+
 ## Setup
 
 Clone the repository and install the dependencies.
