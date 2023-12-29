@@ -47,13 +47,13 @@ def download_audio(url, start_time="0", end_time="0"):
             "-ss", start_time,
             "-to", end_time,
         ],
-        "outtmpl": "%(title)s.%(ext)s",
+        "outtmpl": "%(id)s.%(ext)s",
         "progress_hooks": [progress_hook],
     }
 
     with YoutubeDL(ydl_options) as ydl:
         info = ydl.extract_info(url=url, download=False)
-        video_title = info.get("title", None)
+        video_title = info.get("id", None)
         ext = "mp3"
 
         output_filename = f"{video_title}.{ext}" if video_title else None
