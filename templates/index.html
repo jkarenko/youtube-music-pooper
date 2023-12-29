@@ -13,6 +13,9 @@
         <div>
             <label class="block text-sm font-medium text-gray-600">Paste YouTube URL</label>
             <input type="text" name="url" id="url" class="mt-1 p-2 w-full rounded-md" oninput="loadVideo()">
+            <!-- <div id="drop-area" class="mt-1 p-2 w-full rounded-md border-dashed border-2" ondrop="processFile(event)" ondragover="allowDrop(event)">
+                Or drop file here
+            </div> -->
         </div>
         <div id="video-player" class="w-full h-64 mb-4"></div>
         <div class="flex">
@@ -140,6 +143,21 @@
         const videoId = url.split('v=')[1];
         if (videoId) {
             player.loadVideoById(videoId);
+        }
+    };
+
+    const allowDrop = (event) => {
+        event.preventDefault();
+    };
+
+    const processFile = (event) => {
+        event.preventDefault();
+        event.stopPropagation(); // Stop bubbling
+
+        const file = event.dataTransfer.files[0];
+        if (file) {
+            // Process the file here
+            console.log("Dropped file:", file.name);
         }
     };
 
