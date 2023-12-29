@@ -20,7 +20,7 @@ if not os.path.exists(downloads_dir):
     os.makedirs(downloads_dir)
 app.mount("/downloads", StaticFiles(directory=downloads_dir), name="downloads")
 templates = Jinja2Templates(directory="templates")
-MODEL = "htdemucs_ft"
+MODEL = "htdemucs_6s"
 
 
 def sanitize_filename(filename: str) -> str:
