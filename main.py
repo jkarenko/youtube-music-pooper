@@ -14,7 +14,11 @@ import uuid
 import re
 
 app = FastAPI()
-app.mount("/downloads", StaticFiles(directory="downloads"), name="downloads")
+
+downloads_dir = "downloads"
+if not os.path.exists(downloads_dir):
+    os.makedirs(downloads_dir)
+app.mount("/downloads", StaticFiles(directory=downloads_dir), name="downloads")
 templates = Jinja2Templates(directory="templates")
 MODEL = "htdemucs_ft"
 
