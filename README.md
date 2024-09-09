@@ -1,7 +1,6 @@
 # Youtube Audio Pooper
 
 This application allows you to download audio from YouTube videos, separate the audio into stems, and adjust the volume of each stem to create a custom mix.
-Installation
 
 ![youtube_pooper.jpg](doc/youtube_pooper.jpg)
 
